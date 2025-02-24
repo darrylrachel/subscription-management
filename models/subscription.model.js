@@ -1,5 +1,5 @@
-import { Timestamp } from "mongodb";
-import mongoose, { mongo } from "mongoose";
+// import { timestamps } from "mongodb";
+import mongoose from "mongoose";
 
 const subscriptionSchema = new mongoose.Schema({
   name: {

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 import User from '../models/user.model.js';
 import { JWT_SECRET, JWT_EXPIRES_IN } from '../config/env.js';
@@ -15,7 +15,7 @@ export const signUp = async (req, res, next) => {
     const { name, email, password } = req.body;
 
     // Check if a user already exists
-    const existingUser = await UserActivation.findOne( {email} );
+    const existingUser = await User.findOne( {email} );
 
     if(existingUser) {
       const error = new Error('User already exists');
@@ -25,7 +25,7 @@ export const signUp = async (req, res, next) => {
 
     // Hash Paswword
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
     
     const newUsers = await User.create([{ name, email, password: hashedPassword }], { session });
 

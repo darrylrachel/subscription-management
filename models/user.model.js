@@ -10,18 +10,18 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'User email is required'],
     unique: true,
     trim: true,
     lowercase: true,
-    match: [/\S+@\.\S+/, 'Please fill a valid email address'],
+    match: [/\S+@\S+\.\S+/, 'Please fill a valid email address'],
   },
   password: {
     type: String,
     required: true,
     minLength: 6,
   }
-}, { timesstamps: true });
+}, { timestamps: true });
 
 
 const User = mongoose.model('User', userSchema);
